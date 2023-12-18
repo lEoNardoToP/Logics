@@ -1,0 +1,55 @@
+body {
+width : 100%;
+}
+
+#div-html-image1 {
+  position : relative;
+  width : 100%;
+}
+
+#div-html-image2{
+  position : absolute;
+  top: 930px;
+  width : 100%;
+}
+
+#html-image1 {
+  position : absolute;
+  z-index : -1;
+  top : 0px;
+  width : 100%;
+}
+
+#html-image2{
+  position : absolute;
+  z-index : -1;
+  top : 0px;
+  width : 100%;
+}
+.html-container {
+  position : relative;
+  font-size : 70px;
+  left : 90px;
+  font-weight : bold;
+  -webkit-text-stroke: 3px black;
+}
+
+.sign {
+  color : white;
+}
+
+.element {
+  color : rgb(244, 74, 51);
+}
+
+.attribute {
+  color : rgb(218, 151, 38)
+}
+
+.attribute-value {
+  color : green;
+  text-decoration : none;
+}
+.attribute-value:visited{
+-webkit-text-stroke: 3px black;
+}

@@ -1,0 +1,28 @@
+#tetris img {
+  position : absolute;
+  left : 50%;
+  transform : scale(3);
+}
+/*["I_tetris", "I_tetris", "quadrato_tetris", "z_tetris", "Z_alcontrario_tetris", "T_tetris", "L_tetris"];*/
+
+#tetris #base {
+  top : 1800px;
+  width : 100%;
+  left : 50px;
+  transform : none;
+}
+
+#platform {
+  position : absolute;
+  width : 100%;
+  top : 0px;
+  height : 2000px;
+}
+#change {
+  position : fixed;
+  top : 70%;
+  left : 94%;
+  background-color : red;
+  height : 40px;
+
+}

@@ -1,0 +1,32 @@
+.domanda {
+  color : rgb(217, 29, 29);
+  text-shadow: -3px 0 	#000000, 0 3px 	#000000, 3px 0 	#000000, 0 -3px 	#000000;
+  font-size : 40px;
+}
+#quiz {
+  position : absolute;
+  top : 12%;
+  width : 94%;
+  text-align : center;
+  left : 6%;
+}
+#title {
+  color : white;
+  font-size : 50px;
+}
+.extraneouscharacters {
+  font-family : zapfiro, helvetica;
+}
+.right, .wrong {
+  position : relative;
+  top : 20px;
+  background-color : rgb(33, 111, 168);
+  border-color : rgb(33, 111, 168);
+  width : 200px;
+  height : 50px;
+  font-size : 20px;
+}
+.right a {
+  color : black;
+  text-decoration : none;
+}

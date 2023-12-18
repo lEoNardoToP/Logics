@@ -1,0 +1,97 @@
+#elettrocardiogramma {
+  position : absolute;
+  z-index : -1;
+  top: 0px;
+  width : 100%;
+}
+
+#computer1{
+  position : absolute;
+  transform : scale(0.3);
+  top : 1000px;
+  left : 200px;
+}
+
+#line12 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 470px;
+}
+
+#computer2{
+  position : absolute;
+  transform : scale(0.3);
+  top : 1000px;
+  left : 1000px;
+}
+
+#line24 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 470px;
+}
+
+#computer3{
+  position : absolute;
+  transform : scale(0.3);
+  top : 1400px;
+  left : 620px;
+}
+
+#line45 {
+  position : absolute;
+  z-index : -1;
+  top : 2030px;
+  left : 500px;
+}
+
+#computer4{
+  position : absolute;
+  transform : scale(0.3);
+  top : 1800px;
+  left : 1000px;
+}
+
+#line51 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 470px;
+}
+
+#computer5{
+  position : absolute;
+  transform : scale(0.3);
+  top : 1800px;
+  left : 200px;
+}
+
+#line13 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 500px;
+}
+
+#line23 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 500px;
+}
+
+#line43 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 500px;
+}
+
+#line53 {
+  position : absolute;
+  z-index : -1;
+  top : 1230px;
+  left : 500px;
+}

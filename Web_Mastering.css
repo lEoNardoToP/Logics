@@ -1,0 +1,20 @@
+#webjedimaster {
+  position : absolute;
+  width : 96%;
+  height : 60vh;
+  left : 80px;
+}
+
+#computers {
+  position : absolute;
+  display : flex;
+  flex-direction : row;
+  width : 80%;
+  left : 300px;
+  top : 600px
+}
+.computer {
+  padding : 50px;
+  height : 300px;
+  width : 300px;
+}

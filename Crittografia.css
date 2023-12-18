@@ -1,0 +1,41 @@
+#lucchetto {
+  position : absolute;
+  top : 40%;
+  left : 65%;
+  scale : 200%;
+  transform : translate(-50%, -50%);
+}
+#hiddenlinks {
+  z-index : 1;
+}
+#hashes p, #hiddenlinks a{
+  color : white;
+   text-decoration : none;
+}
+#hashes, #hiddenlinks {
+  position : absolute;
+  color : white;
+  top : 20%;
+  text-shadow: -3px 0 	#000000, 0 3px 	#000000, 3px 0 	#000000, 0 -3px 	#000000;
+  left : 60%;
+  width : 100vw;
+  font-size : 50px;
+  transform : translate(-50%, -50%);
+  display : flex;
+  align-items : left;
+}
+.hiddenlink {
+  visibility : hidden;
+}
+/**
+ * Radial cursor
+ */
+#mouse-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    margin: -32px 0 0 -32px;
+    border: 1px solid #fb0606;
+    border-radius: 50%;
+    pointer-events: none;
+}
