@@ -26,3 +26,7 @@
   height : 40px;
 
 }
+body{
+  background-image: url("./assets/stars-galaxy.gif");
+  background-repeat: repeat;
+}
