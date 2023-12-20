@@ -9,9 +9,11 @@
   position : absolute;
   display : flex;
   flex-direction : row;
+  justify-content: center;
   width : 80%;
-  left : 300px;
-  top : 600px
+  left : 50%;
+  transform: translate(-50%, -50%);
+  top : 40%;
 }
 .computer {
   padding : 50px;
