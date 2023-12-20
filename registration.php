@@ -1,5 +1,5 @@
 <?php
-
+ini_set('display_errors', 1);
 require_once('SendEmail.php');
 require_once('connection.php');
 function generateRandomString($length = 30) {

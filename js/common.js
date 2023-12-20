@@ -494,7 +494,7 @@ $("#PasswordDimenticata").on("click", ()=>{
       type: "POST",
       url: "registration.php",
       data: (formData),
-      dataType: "json",
+      //dataType: "json",
       encode: true,
       error: function(xhr, status, error) {
         console.log(error);

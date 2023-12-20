@@ -1,4 +1,10 @@
 <?php
+//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Headers: X-Requested-With");
+//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
+
   $query = '
   SELECT *
   FROM messages
