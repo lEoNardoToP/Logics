@@ -1,5 +1,12 @@
+:root {
+  --pc-24-left : 800px;
+  --pc-3-left : 420px;
+  --pc-3-top : 400px;
+  --pc-45-top : 800px
+
+}
 #elettrocardiogramma {
-  position : absolute;
+  position : relative;
   z-index : -1;
   top: 0px;
   width : 100%;
@@ -8,22 +15,16 @@
 #computer1{
   position : absolute;
   transform : scale(0.3);
-  top : 1000px;
-  left : 200px;
+  top : 0px;
+  left : 0px;
 }
 
+/*
 #line12 {
   position : absolute;
   z-index : -1;
-  top : 1230px;
-  left : 470px;
-}
-
-#computer2{
-  position : absolute;
-  transform : scale(0.3);
-  top : 1000px;
-  left : 1000px;
+  top : 0px;
+  left : 0px;
 }
 
 #line24 {
@@ -33,13 +34,6 @@
   left : 470px;
 }
 
-#computer3{
-  position : absolute;
-  transform : scale(0.3);
-  top : 1400px;
-  left : 620px;
-}
-
 #line45 {
   position : absolute;
   z-index : -1;
@@ -47,25 +41,11 @@
   left : 500px;
 }
 
-#computer4{
-  position : absolute;
-  transform : scale(0.3);
-  top : 1800px;
-  left : 1000px;
-}
-
 #line51 {
   position : absolute;
   z-index : -1;
   top : 1230px;
   left : 470px;
-}
-
-#computer5{
-  position : absolute;
-  transform : scale(0.3);
-  top : 1800px;
-  left : 200px;
 }
 
 #line13 {
@@ -95,3 +75,42 @@
   top : 1230px;
   left : 500px;
 }
+*/
+
+#computer2{
+  position : absolute;
+  transform : scale(0.3);
+  top : 0px;
+  left : var(--pc-24-left);
+}
+
+#computer3{
+  position : absolute;
+  transform : scale(0.3);
+  top : var(--pc-3-left);
+  left : var(--pc-3-top);
+}
+
+#computer4{
+  position : absolute;
+  transform : scale(0.3);
+  top : var(--pc-45-top);
+  left : var(--pc-24-left);
+}
+
+#computer5{
+  position : absolute;
+  transform : scale(0.3);
+  top : var(--pc-45-top);
+  left : 0px;
+}
+
+#centro {
+  width: 50%;
+  position : relative;
+  left: 50%;
+  top: 2px;
+  transform: translate(-50%, 0%);
+}
+
+
