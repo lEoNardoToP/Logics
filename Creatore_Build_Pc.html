@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="Common.css">
   <link rel="stylesheet" href="assets/fonts/fontCartoon.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link rel="stylesheet" href="Creatore_Build_Pc.css">
   <title>Build PC</title>
 
 
@@ -18,6 +19,47 @@
   <input type="submit" value="Login" class="loginRegisterButtons" id="loginButton">
   <input type="submit" value="Register" class="loginRegisterButtons" id ="registerButton">
 </div>
+
+
+
+
+<div id="LABIRINTO">
+  <div id="Message-Container">
+    <div id="message">
+      <h1>Congratulazioni!</h1>
+      <p>Hai finito!</p>
+      <p id="moves"></p>
+      <input type="button" id="okBtn" onclick="toggleVisibility('Message-Container')" value="Cool!">
+    </div>
+  </div>
+  <br>
+  <div id="menu">
+    <div class="custom-select">
+      <select id="diffSelect">
+      <option value="10">Easy</option>
+      <option value="15">Medium</option>
+      <option value="25">Hard</option>
+      <option value="38">Extreme</option>
+      </select>
+    </div>
+    <input type="button" id="startMazeBtn" onclick="makeMaze()" value="Start">
+  </div>
+  <div id="view">
+    <div id="mazeContainer">
+      <canvas id="mazeCanvas" class="border" height="1100" width="1100"></canvas>
+    </div>
+  </div>
+  <p id="instructions">Usa le freccette per arrivare alla fine del labirinto</p>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="container">
       <div class="star-widget">
         <input type="radio" name="rate" id="rate-5" value="5">
@@ -162,6 +204,7 @@
 <a href="https://t.me/HeadInTheMoon" title="Scrivi a Leonardo su telegram"><i class='bx bxl-telegram' id="LeoTelegram"><h3 id="TelegramLeo">Leo</h3></i></a>
 </div>
 
+<script src="js/Creatore_Build_Pc.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="js/common.js"></script>
 </body>
