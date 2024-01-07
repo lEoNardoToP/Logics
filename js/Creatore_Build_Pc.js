@@ -257,27 +257,26 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null){
         var gridSize = 4;
         var fraction = cellSize / gridSize - 2;
         var colorSwap = true;
-        for (let y = 0; y < gridSize; y++){
-            if (gridSize % 2 == 0){
+        for (let y = 0; y < gridSize; y++) {
+            if (gridSize % 2 == 0) {
                 colorSwap = !colorSwap;
             }
-        }
-        for (let x = 0; x < gridSize; x++) {
-            ctx.beginPath();
-            ctx.rect(
-                coords.x * cellSize + x * fraction + 4.5,
-                coords.y,
-                cellSize + y * fraction + 4.5,
-                fraction,
-                fraction
-            );
-            if (colorSwap) {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-            } else {
-                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+            for (let x = 0; x < gridSize; x++) {
+                ctx.beginPath();
+                ctx.rect(
+                    coords.x * cellSize + x * fraction + 4.5,
+                    coords.y * cellSize + y * fraction + 4.5,
+                    fraction,
+                    fraction
+                );
+                if (colorSwap) {
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+                } else {
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                }
+                ctx.fill();
+                colorSwap = !colorSwap;
             }
-            ctx.fill();
-            colorSwap = !colorSwap;
         }
     }
     function drawEndSprite() {
