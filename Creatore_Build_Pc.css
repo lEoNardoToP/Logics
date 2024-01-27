@@ -15,9 +15,23 @@
 }
 
 #mazeContainer #mazeCanvas {
+    position: absolute;
     margin : 0;
     display: block;
     border : solid 2px black;
+    height: 1000px;
+    width : 1500px;
+    z-index: 0;
+}
+#featuresCanvas {
+    position: absolute;
+    z-index: 1;
+    height: 1000px;
+    width : 1500px;
+}
+#line {
+    position: relative;
+    z-index: 2;
     height: 1000px;
     width : 1500px;
 }

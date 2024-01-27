@@ -43,10 +43,13 @@
       </select>
     </div>
     <input type="button" id="startMazeBtn" onclick="makeMaze()" value="Start">
+    <input type="button" id="showSolution" onclick="showSolution()" value="SOLUTION">
   </div>
   <div id="view">
     <div id="mazeContainer">
-      <canvas id="mazeCanvas" class="border" height="1100" width="1100"></canvas>
+      <canvas id="mazeCanvas" class="border"></canvas>
+       <canvas id="featuresCanvas" ></canvas>
+      <canvas id="line" ></canvas>
     </div>
   </div>
 </div>

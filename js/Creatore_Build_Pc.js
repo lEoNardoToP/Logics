@@ -9,7 +9,8 @@ function shuffle (a){
     }
     return a;
 }
-function changeBrightness (factor, sprite) {
+
+function changeBrightness (factor, sprite)  {
     var virtCanvas = document.createElement("canvas");
     virtCanvas.width = 500;
     virtCanvas.height = 500;
@@ -40,6 +41,12 @@ function toggleVisibility(id) {
         document.getElementById(id).style.visibility = "visible";
     }
 }
+
+var percorso = []
+features = document.getElementById("featuresCanvas");
+ctx2 = features.getContext("2d");
+var line = document.getElementById("line")
+var ctx3 = line.getContext("2d")
 function Maze(Width, Height) {
     var mazeMap;
     var width = Width;
@@ -97,17 +104,18 @@ function Maze(Width, Height) {
     }
 
     function defineMaze() {
+        var n = 0;
+        var reached  = false;
         var isComp = false;
         var move = false;
         var cellVisited = 1;
         var numLoops = 0;
         var maxLoops = 0;
         var pos = {
-            x: 0,
-            y: 0
+            x: startcoords.x,
+            y: startcoords.y
         }
         var numCells = width * height;
-        var grafo = new Grafo();
         while (!isComp) {
             move = false;
             mazeMap[pos.x][pos.y].visited = true;
@@ -127,16 +135,18 @@ function Maze(Width, Height) {
                         //scolpisci i muri da questa tessera alla successiva
                         mazeMap[pos.x][pos.y][direction] = true;//la positione è stata visitata
                         mazeMap[nx][ny][modDir[direction].o] = true;//la posizione precedente è stata visitata
-
+                        if (!reached) {
+                            percorso.push([pos.x, pos.y])
+                            if (endcoords.x == pos.x && endcoords.y == pos.y) {
+                                reached = true;
+                            }
+                        }
                         //setta questa cella come quella precedente
                         mazeMap[nx][ny].priorPos = pos;
                         pos = {
                             x: nx,
                             y: ny
                         };
-
-                        grafo.add(new Nodo(nx, ny));
-                        grafo.connect(new Nodo(mazeMap[nx][ny].priorPos[x], mazeMap[nx][ny].priorPos[y]), new Nodo(nx, ny));
 
                         cellVisited++;
                         //ricorsivamente chiama questo metodo sulla prossima cella
@@ -149,6 +159,9 @@ function Maze(Width, Height) {
                 //se ha fallito a trovare una direzione,
                 //muovi la currentPosition indietro alla precedente e richiama il metodo
                 pos = mazeMap[pos.x][pos.y].priorPos;
+                if (!reached) {
+                    percorso.pop()
+                }
             }
             if (numCells == cellVisited) {
                 isComp = true;
@@ -205,18 +218,30 @@ function Maze(Width, Height) {
     defineMaze();
 }
 
-//TEMPORANEE(?)
 function DrawMaze(Maze, ctx, cellsize, endSprite = null){
     var map = Maze.map();
     var cellSize = cellsize;
     var drawEndMethod;
+    mazeCanvas.style.background = "green"
+    ctx.strokeStyle = "yellow"
     ctx.lineWidth = cellSize / 40;
+    ctx2.strokeStyle = "yellow"
+    ctx2.lineWidth = cellSize / 40;
     this.redrawMaze = function (size){
         cellSize = size;
         ctx.lineWidth = cellSize / 50;
         drawMap();
         drawEndMethod();
     };
+    function drawCircle (x, y) {
+        if (rand(100) % 10 == 0){
+            ctx2.beginPath()
+            ctx2.moveTo(x,y)
+            ctx2.fillStyle = "yellow"
+            ctx2.arc(x, y, 100/difficulty, 0, 2*Math.PI);
+            ctx2.fill()
+        }
+    }
     function drawCell(xCord, yCord, cell){
         var x = xCord * cellSize;
         var y = yCord * cellSize;
@@ -225,24 +250,28 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null){
             ctx.moveTo(x,y);
             ctx.lineTo(x + cellSize, y);
             ctx.stroke();
+            drawCircle (x + cellSize, y)
         }
         if (cell.s === false){
             ctx.beginPath();
             ctx.moveTo(x,y + cellSize);
             ctx.lineTo(x + cellSize, y + cellSize);
             ctx.stroke();
+            drawCircle (x + cellSize, y + cellSize)
         }
         if (cell.e === false){
             ctx.beginPath();
             ctx.moveTo(x + cellSize,y);
             ctx.lineTo(x + cellSize, y + cellSize);
             ctx.stroke();
+            drawCircle (x, y)
         }
         if (cell.w === false){
             ctx.beginPath();
             ctx.moveTo(x,y);
             ctx.lineTo(x, y + cellSize);
             ctx.stroke();
+            drawCircle (x, y + cellSize)
         }
     }
     function drawMap (){
@@ -380,7 +409,6 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
             cellSize - offsetRight
         );
     }
-
     function check(e) {
         var cell = map [cellCoords.x] [cellCoords.y];
         switch (e.keyCode) {
@@ -434,6 +462,7 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
                 break;
         }
     }
+
     this.bindKeyDown = function () {
             window.addEventListener("keydown", check, false);
             $("#view").on("swipe", {
@@ -492,9 +521,17 @@ window.onload = function () {
     if (windowHeight < windowWidth) {
         ctx.canvas.width = windowHeight - windowHeight / 100;
         ctx.canvas.height = windowHeight - windowHeight / 100;
+        ctx2.canvas.width = windowHeight - windowHeight / 100;
+        ctx2.canvas.height = windowHeight - windowHeight / 100;
+        ctx3.canvas.width = windowHeight - windowHeight / 100;
+        ctx3.canvas.height = windowHeight - windowHeight / 100;
     } else {
         ctx.canvas.width = windowWidth - windowWidth / 100;
         ctx.canvas.height = windowWidth - windowWidth / 100;
+        ctx2.canvas.width = windowWidth - windowWidth / 100;
+        ctx2.canvas.height = windowWidth - windowWidth / 100;
+        ctx3.canvas.width = windowWidth - windowWidth / 100;
+        ctx3.canvas.height = windowWidth - windowWidth / 100;
     }
     var completeOne = false;
     var completeTwo = false;
@@ -510,7 +547,7 @@ window.onload = function () {
     sprite.src = "assets/elettrone.png"
     sprite.setAttribute("crossOrigin", " ");
     sprite.onload = function (){
-        sprite.changeBrightness(1.2, sprite);
+        changeBrightness(1.2, sprite);
         completeOne = true;
         console.log(completeOne);
         isCompleted();
@@ -522,9 +559,17 @@ window.onresize = function () {
     if (viewHeight < viewWidth) {
         ctx.canvas.width = viewHeight - viewHeight / 100;
         ctx.canvas.height = viewHeight - viewHeight / 100;
+        ctx2.canvas.width = viewHeight - viewHeight / 100;
+        ctx2.canvas.height = viewHeight - viewHeight / 100;
+        ctx3.canvas.width = viewHeight - viewHeight / 100;
+        ctx3.canvas.height = viewHeight - viewHeight / 100;
     } else {
         ctx.canvas.width = viewWidth - viewWidth / 100;
         ctx.canvas.height = viewWidth - viewWidth / 100;
+        ctx2.canvas.width = viewWidth - viewWidth / 100;
+        ctx2.canvas.height = viewWidth - viewWidth / 100;
+        ctx3.canvas.width = viewWidth - viewWidth / 100;
+        ctx3.canvas.height = viewWidth - viewWidth / 100;
     }
     cellSize = mazeCanvas.width / difficulty;
     if (player != null){
@@ -533,6 +578,8 @@ window.onresize = function () {
     }
 }
 function  makeMaze () {
+    showedsolution = false;
+    percorso = []
     if (player != undefined) {
         player.unbindKeyDown();
         player = null;
@@ -544,9 +591,17 @@ function  makeMaze () {
     if (viewHeight < viewWidth) {
         ctx.canvas.width = viewHeight - viewHeight / 100;
         ctx.canvas.height = viewHeight - viewHeight / 100;
+        ctx2.canvas.width = viewHeight - viewHeight / 100;
+        ctx2.canvas.height = viewHeight - viewHeight / 100;
+        ctx3.canvas.width = viewHeight - viewHeight / 100;
+        ctx3.canvas.height = viewHeight - viewHeight / 100;
     } else {
         ctx.canvas.width = viewWidth - viewWidth / 100;
         ctx.canvas.height = viewWidth - viewWidth / 100;
+        ctx2.canvas.width = viewWidth - viewWidth / 100;
+        ctx2.canvas.height = viewWidth - viewWidth / 100;
+        ctx3.canvas.width = viewWidth - viewWidth / 100;
+        ctx3.canvas.height = viewWidth - viewWidth / 100;
     }
     cellSize = mazeCanvas.width / difficulty;
     console.log(cellSize)
@@ -557,38 +612,24 @@ function  makeMaze () {
     }
     player = new Player(maze, mazeCanvas, cellSize, displayVictoryMess, sprite)
 }
-
-
-
-class Nodo {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+var showedsolution = false
+function showSolution(){
+    if (! showedsolution) {
+        ctx3.beginPath();
+        ctx3.lineWidth = cellSize / 40;
+        ctx3.strokeStyle = "blue"
+        ctx3.moveTo(percorso[0][0] * cellSize + cellSize / 2, percorso[0][1] * cellSize + cellSize / 2)
+        for (var i = 1; i < percorso.length; i++) {
+            ctx3.lineTo(percorso[i][0] * cellSize + cellSize / 2, percorso[i][1] * cellSize + cellSize / 2)
+            ctx3.stroke()
+        }
+        showedsolution = true;
+    } else {
+        ctx3.clearRect(0,0,line.width, line.height);
+        showedsolution = false;
     }
 }
-class Grafo {
-    //un grafo, contiene un dict che associa ogni nodo esistente ai suoi adiacenti,la chiave è il nodo iniziale, il  valore è una lista che contiene in oridine i nodi
-    constructor() {
-        this.inner = {};
-    }
-    //aggiunge un nodo non connesso a nulla
-    add (el){
-        this.inner[el] = [];
-    }
-    //connette un nodo a molti nodi specificati in un array
-    connect (el1, el2arr){
-        var pos1 = -1;
-        for (var i in this.inner) {
-            if (i === el1) {
-                pos1 = i;
-            }
-        }
-        for (var el2 in el2arr){
-            this.inner[pos1] += el2;
-        }
-    }
 
-}
 
 window.addEventListener("keydown", function(e) {
     if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
