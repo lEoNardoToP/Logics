@@ -137,7 +137,7 @@ function Maze(Width, Height) {
                         mazeMap[nx][ny][modDir[direction].o] = true;//la posizione precedente è stata visitata
                         if (!reached) {
                             percorso.push([pos.x, pos.y])
-                            if (endcoords.x == pos.x && endcoords.y == pos.y) {
+                            if (endcoords.x === pos.x && endcoords.y === pos.y) {
                                 reached = true;
                             }
                         }
