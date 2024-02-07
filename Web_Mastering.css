@@ -1,3 +1,6 @@
+:root{
+  --schermo : 300px;
+}
 #webjedimaster {
   position : absolute;
   width : 96%;
@@ -8,15 +11,47 @@
 #computers {
   position : absolute;
   display : flex;
+  min-height: 500px;
   flex-direction : row;
-  justify-content: center;
-  width : 80%;
+  justify-content:space-between;
+  width : 70%;
   left : 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-60%, -50%);
   top : 40%;
 }
+.buttonONOFF {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  /*color: #fb0606;*/
+  filter: invert(27%) sepia(99%) saturate(7401%) hue-rotate(358deg) brightness(94%) contrast(111%);
+}
+.tv{
+  cursor: not-allowed;
+  active: false;
+  position: relative;
+  width: var(--schermo);
+  height: var(--schermo);
+}
+.item {
+  width: fit-content;
+  height: fit-content;
+}
+.schermo {
+  z-index: -1;
+  position: absolute;
+  left: calc(var(--schermo)/2);
+  top: calc(var(--schermo)/2);
+  transform: translate(-50%, -59%);
+  width : calc(var(--schermo) - 100px);
+  height: calc(var(--schermo) - 150px);
+  display: none;
+}
 .computer {
+  position: absolute;
+  left: 0;
+  top: 0;
   padding : 50px;
-  height : 300px;
-  width : 300px;
+  height : var(--schermo);
+  width : var(--schermo);
 }
