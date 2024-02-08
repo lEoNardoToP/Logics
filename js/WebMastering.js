@@ -1,6 +1,4 @@
-$(".tv").click(function (e){
-            e.preventDefault();
-})
+$(".schermo").siblings(".tv").bind("click", preventDefault)
 function preventDefault(e) {
     e.preventDefault();
 }
