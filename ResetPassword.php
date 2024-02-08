@@ -24,7 +24,7 @@ if (isset($_GET["token"])){
     $check->bindParam(':id', $id, PDO::PARAM_STR);
     $check->bindParam(':password', $password_hash, PDO::PARAM_STR);
     $check->execute();
-    header("Location: http://localhost/FedeLeoSite/HomePage.html");
+    header("Location: http://localhost/Logics/HomePage.html");
   }
 }
 

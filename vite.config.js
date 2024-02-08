@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
-
+import usePHP from 'vite-plugin-php';
 export default defineConfig({
+  plugins: [usePHP()],
   build: {
     rollupOptions: {
       input: {
@@ -12,3 +13,6 @@ export default defineConfig({
     open: '/HomePage.html',
   },
 })
+usePHP({
+	binary: '/opt/lampp/bin/php-8.1.10',
+});
