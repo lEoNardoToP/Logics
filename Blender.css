@@ -1,0 +1,16 @@
+#SideBar{
+    position: absolute;
+    right : 0;
+    height: 100vh;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    overflow: scroll;
+}
+.gltfs {
+    width: 400px;
+    height : 300px;
+    background-size: cover;
+    cursor: pointer;
+}

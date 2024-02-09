@@ -286,10 +286,12 @@ pointer-events : none;
 
 #loginButton {
   left : 85%;
+  z-index: 3;
 }
 
 #registerButton {
   left : 93%;
+  z-index: 3;
 }
 
 #noAccount,#alreadyAccount{
