@@ -1,22 +1,22 @@
 :root {
-  --pc-24-left : 800px;
-  --pc-3-left : 420px;
-  --pc-3-top : 400px;
-  --pc-45-top : 800px
+  --pc-24-left : 60vw;
+  --pc-3-left : 30vw;
+  --pc-3-top : 30vw;
+  --pc-45-top : 60vw;
 
 }
 #elettrocardiogramma {
   position : relative;
   z-index : -1;
-  top: 0px;
+  top: 0;
   width : 100%;
 }
 
 #computer1{
   position : absolute;
   transform : scale(0.3);
-  top : 0px;
-  left : 0px;
+  top : 0;
+  left : 0;
 }
 
 /*
@@ -108,9 +108,8 @@
 #centro {
   width: 50%;
   position : relative;
-  left: 50%;
+  left: 100px;
   top: 2px;
-  transform: translate(-50%, 0%);
 }
 
 
