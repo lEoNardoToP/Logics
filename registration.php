@@ -182,8 +182,8 @@ if (isset($_POST['register'])) {
             }
 
             $encryptedID = openssl_encrypt($randomID, $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
-            send_email($email, "LOGICS verifica la tua email" ,'<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>Logics</title></head><body><a href="http://localhost/Logics/futureRegistration.php?token='.$encryptedID.'">Verifica il tuo indirizzo email </a></body></html>', );
-              //send_email modifica canGo
+            $canGo = send_email($email, "LOGICS verifica la tua email" ,'<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>Logics</title></head><body><a href="http://localhost/Logics/futureRegistration.php?token='.$encryptedID.'">Verifica il tuo indirizzo email </a></body></html>', );
+
               if ($canGo) {
                 $query = "
                     INSERT INTO users
