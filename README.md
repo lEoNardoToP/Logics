@@ -57,3 +57,21 @@ The current value of this repository is that it shows initiative and breadth. Th
 ## Recruiter note
 
 This is not presented as a production-ready product. It is an early large-scope prototype that I am using to show learning history, initiative, and the ability to explore broad technical areas. My newer portfolio work is moving toward cleaner backend/API/AI/security projects.
+
+## Local configuration and security
+
+This is an **archival prototype**, not a production-ready service. The PHP files
+`connection.php` and `SendEmail.php` now read database and SMTP configuration
+from environment variables. See [`.env.example`](.env.example) for the required
+names. **PHP does not load `.env` files automatically**: configure variables in
+the PHP/server process or use an appropriate environment loader.
+
+After removing previously embedded credentials from source, **rotate/revoke all
+the previously committed SMTP/database credentials**. Git history may still
+contain them. Cleaning history requires a separate, coordinated history rewrite;
+simply updating the file is insufficient. Review the code and authentication
+flows before deploying it to the internet.
+
+The repository still contains legacy, already-tracked generated/editor/dependency
+files. The updated `.gitignore` prevents new files from being added accidentally
+but does not remove tracked files; a dedicated cleanup is pending.
