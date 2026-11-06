@@ -8,3 +8,14 @@
 /var/
 ###< symfony/framework-bundle ###
 node_modules/*
+# Local configuration and developer/editor output
+.env
+.env.*
+!.env.example
+.idea/
+.DS_Store
+**/.DS_Store
+node_modules/
+vendor/
+__pycache__/
+*.log
