@@ -1,30 +1,29 @@
 <?php
+declare(strict_types=1);
 
-//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header("Access-Control-Allow-Headers: X-Requested-With");
-//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
+// Configure these values in the deployment environment, never in Git.
+// The application fails closed when required credentials are missing.
+$host = getenv('DB_HOST') ?: '127.0.0.1';
+$port = (int) (getenv('DB_PORT') ?: '3306');
+$name = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
 
-$config = [
-    'db_engine' => 'mysql',
-    'db_host' => '127.0.0.1',
-    'db_name' => 'login',
-    'db_user' => 'root',
-    'db_password' => 'REMOVED_SECRET',
-];
-
-$db_config = $config['db_engine'] . ":host=".$config['db_host'] . ";dbname=" . $config['db_name'].";charset=utf8mb4";
+if (!$name || !$user || $password === false || $password === '') {
+    error_log('Database environment configuration is incomplete.');
+    http_response_code(503);
+    exit('Database is not configured.');
+}
 
 try {
-    $pdo = new PDO($db_config, $config['db_user'], $config['db_password'], [
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_general_ci"
+    $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $host, $port, $name);
+    $pdo = new PDO($dsn, $user, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
 } catch (PDOException $e) {
-    exit("Impossibile connettersi al database: " . $e->getMessage());
+    error_log('Database connection failed.');
+    http_response_code(503);
+    exit('Service temporarily unavailable.');
 }
-?>
