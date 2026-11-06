@@ -1,45 +1,51 @@
 <?php
+declare(strict_types=1);
+
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception as MailException;
 
-//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header("Access-Control-Allow-Headers: X-Requested-With");
-//CAMBIARE QUESTO BLOCCO IN PRODUCTION PER SICUREZZA
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/Exception.php';
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/vendor/phpmailer/phpmailer/src/SMTP.php';
 
-require 'vendor/phpmailer/phpmailer/src/Exception.php';
-require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require 'vendor/phpmailer/phpmailer/src/SMTP.php';
-$canGo = true;
-function send_email ($to, $title, $body) {
-  $mail = new PHPMailer(true);
+/**
+ * Send an application email. SMTP credentials must be configured in the
+ * deployment environment; no credentials belong in source control.
+ */
+function send_email(string $to, string $title, string $body): bool
+{
+    $host = getenv('SMTP_HOST');
+    $username = getenv('SMTP_USERNAME');
+    $password = getenv('SMTP_PASSWORD');
+    $from = getenv('SMTP_FROM_EMAIL');
 
-  try {
-      //Server settings
-      $mail->SMTPDebug = 0;
-      $mail->isSMTP();                                            //Send using SMTP
-      $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-      $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-      $mail->Username   = 'REMOVED_EMAIL';                     //SMTP username
-      $mail->Password   = 'REMOVED_SECRET';                               //SMTP password
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-      $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    if (!$host || !$username || !$password || !$from) {
+        error_log('SMTP is not configured: required environment variables are missing.');
+        return false;
+    }
 
-      //Recipients
-      $mail->setFrom('REMOVED_EMAIL', 'LOGICS');
-      $mail->addAddress($to);     //Add a recipient
-
-      //Content
-      $mail->isHTML(true);                                  //Set email format to HTML
-      $mail->Subject = $title;
-      $mail->Body    = $body;
-      $mail->AltBody = '';
-
-      $mail->send();
-  } catch (Exception $e) {
-      $canGo = false;
-  }
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = $host;
+        $mail->SMTPAuth = true;
+        $mail->Username = $username;
+        $mail->Password = $password;
+        $port = (int) (getenv('SMTP_PORT') ?: 465);
+        $mail->Port = $port;
+        $mail->SMTPSecure = $port === 587
+            ? PHPMailer::ENCRYPTION_STARTTLS
+            : PHPMailer::ENCRYPTION_SMTPS;
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom($from, getenv('SMTP_FROM_NAME') ?: 'Logics');
+        $mail->addAddress($to);
+        $mail->isHTML(true);
+        $mail->Subject = $title;
+        $mail->Body = $body;
+        $mail->AltBody = trim(strip_tags($body));
+        return $mail->send();
+    } catch (MailException $e) {
+        error_log('Email delivery failed.');
+        return false;
+    }
 }
-?>
