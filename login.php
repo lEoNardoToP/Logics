@@ -149,7 +149,7 @@ if (isset($_POST['login'])) {
             $_SESSION['session_id'] = session_id();
             $cypherMethod = 'AES-128-CBC';
 
-            $encryptedID = openssl_encrypt($user["id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+            $encryptedID = openssl_encrypt($user["id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
             $_SESSION["user_id"] = $encryptedID;
             $_SESSION['session_user'] = $user['username'];
             $msg = "Login Effettuato";
@@ -160,7 +160,7 @@ if (isset($_POST['login'])) {
             ';
             $cypherMethod = 'AES-128-CBC';
             if (isset($_SESSION["user_id"])){
-            $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+            $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
             } else {
               $id = "";
             }
@@ -190,7 +190,7 @@ if (isset($_POST['login'])) {
     ';
     $cypherMethod = 'AES-128-CBC';
     if (isset($_SESSION["user_id"])){
-    $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+    $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
     } else {
       $id = "";
     }

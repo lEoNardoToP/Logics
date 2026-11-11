@@ -2,7 +2,7 @@
 require_once('connection.php');
 session_start();
 $cypherMethod = 'AES-128-CBC';
-$outgoing_id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+$outgoing_id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
 $output = "";
 
 $query = "

@@ -26,7 +26,7 @@ if ($canGo){
   $user = $check->fetch();
   $cypherMethod = 'AES-128-CBC';
 
-  $encryptedID = openssl_encrypt($user["id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+  $encryptedID = openssl_encrypt($user["id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
   send_email($email, "LOGICS resetta la tua email", '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>Logics</title></head><body><a href="http://localhost/FedeLeoSite/ResetPassword.php?token='.$encryptedID.'&password='.$_POST["password"].'">Resetta il tuo indirizzo email </a></body></html>');
 
 }

@@ -6,7 +6,7 @@ require_once("SendEmail.php");
    $outgoing_username = $_POST["outgoing_username"];
    $message = $_POST["message"];
    $cypherMethod = 'AES-128-CBC';
-   $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+   $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
    } else {
      $id = "";
    }
@@ -59,7 +59,7 @@ require_once("SendEmail.php");
      $check->execute();
      $adminStatus = $check->fetch(PDO::FETCH_ASSOC);
      if ($adminStatus["status"] == "Offline now"){
-       send_email("REMOVED_EMAIL", "Nuovo messaggio", '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>Logics</title></head><body>Da: '.$fetched["username"].'.<br>'.$message.'</body></html>');
+       send_email(getenv('ADMIN_NOTIFY_EMAIL'), "Nuovo messaggio", '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>Logics</title></head><body>Da: '.$fetched["username"].'.<br>'.$message.'</body></html>');
 
      }
    }

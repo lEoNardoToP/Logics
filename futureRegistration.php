@@ -2,7 +2,7 @@
 require_once('connection.php');
 $cypherMethod = 'AES-128-CBC';
 if (isset($_GET["token"])){
-  $id = openssl_decrypt($_GET["token"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+  $id = openssl_decrypt($_GET["token"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
   $query = "
       SELECT username
       FROM users
@@ -27,7 +27,7 @@ if (isset($_GET["token"])){
     $_SESSION['session_user'] = $user["username"];
     header("Location: http://localhost/Logics/HomePage.html");
   } else {
-    $id = openssl_decrypt($_GET["token"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+    $id = openssl_decrypt($_GET["token"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
     echo "<h1>Something went wrong</h1>";
     echo $id;
   }

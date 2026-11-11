@@ -34,6 +34,14 @@ The project includes sections or concepts related to:
 
 ---
 
+## Run locally
+
+1. Create the MySQL tables with `sql.sql`.
+2. Copy `.env.example` and set every value in your server environment
+   (`DB_*`, `SMTP_*`, `APP_ENCRYPTION_KEY`, `ADMIN_NOTIFY_EMAIL`). No credential lives in the code.
+3. Install PHP dependencies with `composer install` and serve the folder with PHP 8 (for example `php -S localhost:8000`).
+4. Open `HomePage.html`.
+
 ## Current status
 
 **Status:** older prototype / portfolio cleanup in progress.

@@ -5,7 +5,7 @@ if (isset($_SESSION["user_id"])){
   $output = "";
   $outgoing_username = $_POST["outgoing_username"];
   $cypherMethod = 'AES-128-CBC';
-  $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+  $id = openssl_decrypt($_SESSION["user_id"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
   } else {
     $id = "";
   }

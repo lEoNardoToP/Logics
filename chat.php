@@ -1,6 +1,6 @@
 <?php
 require_once('connection.php');
-$username = $_POST["username"]
+$username = $_POST["username"];
 $query = "
     SELECT status
     FROM users

@@ -2,7 +2,7 @@
 require_once("connection.php");
 if (isset($_GET["token"])){
   $cypherMethod = 'AES-128-CBC';
-  $id = openssl_decrypt($_GET["token"], $cypherMethod, "REMOVED_SECRET", $options=0, "1234567812345678");
+  $id = openssl_decrypt($_GET["token"], $cypherMethod, getenv('APP_ENCRYPTION_KEY'), $options=0, "1234567812345678");
   $query = "
       SELECT username
       FROM users
