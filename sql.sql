@@ -29,3 +29,14 @@ CREATE TABLE `ips`(
 `date` datetime not null,
 `tentativi` int(30) not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Single-use password reset links. Only hashes are stored: SHA-256 of the emailed
+-- token and bcrypt of the requested new password. Times are UTC.
+CREATE TABLE `password_resets`(
+`token_hash` char(64) not null PRIMARY KEY,
+`user_id` varchar(30) not null,
+`new_password_hash` varchar(255) not null,
+`expires_at` datetime not null,
+`used` int(1) not null default 0,
+KEY `password_resets_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
